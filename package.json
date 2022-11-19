@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.25.0",
+    "@vueuse/head": "^1.0.16",
+    "pinia": "^2.0.24",
     "purplefox-tools": "^1.2.0",
+    "tiny-emitter": "^2.1.0",
     "vue": "^3.2.16",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.9.3",

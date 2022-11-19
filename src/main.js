@@ -1,13 +1,19 @@
-import { createApp } from "vue";
-import App from "./App.vue";
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import App from './App.vue'
 
-import { NotificationsPlugin, ModalPlugin, IconPlugin } from "purplefox-tools";
+import { NotificationsPlugin, ModalPlugin, IconPlugin } from 'purplefox-tools'
+import userPlugin from '/src/plugins/user'
+import router from './router'
 
-import "purplefox-tools/style.css";
-import "./style/index.css";
+import 'purplefox-tools/style.css'
+import './style/index.css'
 
 createApp(App)
-    .use(NotificationsPlugin)
-    .use(IconPlugin)
-    .use(ModalPlugin)
-    .mount("#app");
+  .use(router)
+  .use(createPinia())
+  .use(userPlugin, { router })
+  .use(NotificationsPlugin)
+  .use(IconPlugin)
+  .use(ModalPlugin)
+  .mount('#app')

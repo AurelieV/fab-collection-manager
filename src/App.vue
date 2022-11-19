@@ -1,4 +1,10 @@
 <template>
-    <h1>Coucou</h1>
-    <Pf_TheNotifications></Pf_TheNotifications>
+  <router-view></router-view>
+  <Pf_TheNotifications></Pf_TheNotifications>
 </template>
+
+<script>
+export default {
+  provide: { pfNoPrerender: true },
+}
+</script>
