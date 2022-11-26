@@ -12,12 +12,15 @@ import { watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 import TheHeader from '/src/components/layout/TheHeader.vue'
+
+import { useDatabaseStore } from '/src/stores/database'
 import { useUserStore } from '/src/stores/user'
 
 export default {
   components: { TheHeader },
   setup() {
     const userStore = useUserStore()
+    const databaseStore = useDatabaseStore()
     const router = useRouter()
 
     watch(
@@ -28,6 +31,7 @@ export default {
         }
       }
     )
+    databaseStore.fetchEditions()
   },
 }
 </script>

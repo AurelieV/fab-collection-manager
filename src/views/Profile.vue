@@ -1,7 +1,7 @@
 <template>
-  <teleport to="#header-slot">
+  <HeaderSlot>
     <div class="ml-2">Profile</div>
-  </teleport>
+  </HeaderSlot>
   <form class="grid max-w-md grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-2" @submit.prevent="onSubmit">
     <div class="flex flex-col">
       <label for="pseudo" class="pf-label">Pseudo</label>
@@ -20,9 +20,10 @@ import { ref } from 'vue'
 import { Pf_SubmitButton } from 'purplefox-tools'
 
 import { useUserStore } from '/src/stores/user'
+import HeaderSlot from '/src/components/layout/HeaderSlot.vue'
 
 export default {
-  components: { Pf_SubmitButton },
+  components: { Pf_SubmitButton, HeaderSlot },
   setup() {
     const userStore = useUserStore()
     const pseudo = ref(userStore.profile?.pseudo)

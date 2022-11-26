@@ -1,39 +1,48 @@
 <template>
-    <header class="fixed top-0 left-0 right-0 z-20 flex items-center h-10 px-2 text-white bg-purple">
-        <button @click="openMenu"><Pf_Icon icon="mdi:menu"></Pf_Icon></button>
-        <div id="header-slot" class="flex-1"></div>
-    </header>
-    <TheMenu :is-open="isMenuOpen" @close="closeMenu"></TheMenu>
+  <header class="fixed top-0 left-0 right-0 z-20 flex items-center h-10 px-2 text-white bg-purple">
+    <button @click="openMenu"><Pf_Icon icon="mdi:menu"></Pf_Icon></button>
+    <div id="header-slot" class="flex-1"></div>
+  </header>
+  <TheMenu :is-open="isMenuOpen" @close="closeMenu"></TheMenu>
 </template>
 
 <script>
-import emitter from "tiny-emitter/instance";
-import { watch } from "vue";
-import { useModal } from "purplefox-tools";
+import emitter from 'tiny-emitter/instance'
+import { onMounted, onUnmounted, watch } from 'vue'
+import { useModal } from 'purplefox-tools'
 
-import TheMenu from "/src/components/layout/TheMenu.vue";
+import TheMenu from '/src/components/layout/TheMenu.vue'
+import { useUxStore } from '/src/stores/ux'
 
 export default {
-    components: { TheMenu },
-    setup() {
-        const { isOpen: isMenuOpen, close: closeMenu, open: openMenu } = useModal("menu");
+  components: { TheMenu },
+  setup() {
+    const { isOpen: isMenuOpen, close: closeMenu, open: openMenu } = useModal('menu')
 
-        watch(isMenuOpen, (isOpen) => {
-            if (isOpen) {
-                document.body.classList.add("overflow-hidden");
-            } else {
-                document.body.classList.remove("overflow-hidden");
-            }
-        });
-        emitter.on("close-menu", () => closeMenu());
+    watch(isMenuOpen, (isOpen) => {
+      if (isOpen) {
+        document.body.classList.add('overflow-hidden')
+      } else {
+        document.body.classList.remove('overflow-hidden')
+      }
+    })
+    emitter.on('close-menu', () => closeMenu())
 
-        return { isMenuOpen, closeMenu, openMenu };
-    },
-};
+    const uxStore = useUxStore()
+    onMounted(() => {
+      uxStore.isHeaderLoad = true
+    })
+    onUnmounted(() => {
+      uxStore.isHeaderLoad = false
+    })
+
+    return { isMenuOpen, closeMenu, openMenu }
+  },
+}
 </script>
 
 <style scoped>
 #header-slot {
-    display: flex;
+  display: flex;
 }
 </style>
